@@ -85,6 +85,10 @@ public class MainPanel extends JPanel{
 		bttSeeLoans.setFont(fontRegular);
 		bttExit.setFont(fontRegular);
 		
+		bttOpUser.addActionListener(e -> {
+			mainFrame.showPanel("OpUser");
+		});
+		
 		bttExit.addActionListener(e -> {
 			System.exit(0);
 		});

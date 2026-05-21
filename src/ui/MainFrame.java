@@ -28,8 +28,11 @@ public class MainFrame extends JFrame{
 		container = new JPanel(layout);
 		
 		MainPanel mainPanel = new MainPanel(this);
+		OperationUserPanel OpUserPanel = new OperationUserPanel(this);
 		
 		container.add(mainPanel,"Principal");
+		container.add(OpUserPanel,"OpUser");
+		
 		
 		layout.show(container, "Principal");
 		
