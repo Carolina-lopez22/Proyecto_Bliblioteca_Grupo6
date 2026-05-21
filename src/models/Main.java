@@ -3,8 +3,19 @@ package models;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hola grupo");
-		//Esta linea la hice yo :b
-	}
+		
+		        // Prueba de Usuarios
+		        Library library = new Library();
 
-}
+		        User user1 = new User(1, "Daniel");
+		        User user2 = new User(2, "Alexa");
+
+		        library.newUser(user1);
+		        library.newUser(user2);
+		       
+		        System.out.println("Usuarios");
+		        library.showUsers();
+
+		    }
+		}        
+	
