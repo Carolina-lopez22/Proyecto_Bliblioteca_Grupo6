@@ -54,8 +54,8 @@ public class MainPanel extends JPanel{
 		bttOpLoan = new JButton("Operaciones");
 		
 		bttSeeMaterial = new JButton("Ver Materiales");
-		bttSeeUser = new JButton("Ver Materiales");
-		bttSeeLoans = new JButton("Ver Materiales");
+		bttSeeUser = new JButton("Ver Usuarios");
+		bttSeeLoans = new JButton("Ver Prestamos");
 		
 		bttExit = new JButton("Salir");
 		
@@ -96,6 +96,12 @@ public class MainPanel extends JPanel{
 		bttOpLoan.addActionListener(e -> {
 			mainFrame.showPanel("OpLoan");
 		});
+		
+		bttSeeMaterial.addActionListener(e -> mainFrame.showPanel("SeeMaterial"));
+		
+		bttSeeUser.addActionListener(e -> mainFrame.showPanel("SeeUser"));
+		
+		bttSeeLoans.addActionListener(e -> mainFrame.showPanel("SeeLoan"));
 		
 		bttExit.addActionListener(e -> {
 			System.exit(0);
