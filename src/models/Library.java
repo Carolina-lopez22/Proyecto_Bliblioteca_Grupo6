@@ -26,6 +26,24 @@ public class Library {
     public void newUser(User user) {
         users.add(user);
     }
+    // MEtodo para buscar Usuario
+    public User findUserById(String id) {
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
+        return null;
+    }
+    //Metodo para buscar libro
+    public Book findBookByTitle(String title) {
+       for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                return book;
+            }
+        }
+        return null;
+}
 
     // Método para prestar un libro
     public boolean loanBook(User user, Book book, int maxDays) {
@@ -62,12 +80,39 @@ public class Library {
                         if (book.getTitle().equals(bookTitle)) {
                             book.returnCopy();
                             break;
+               }
         }
-           }   return true;
-                }
-            }
+                    // Buscar usuario para actualizarlo
+
+                    for (User user : users) {
+                        if (user.getName().equals(studentName)) {
+                        	
+                            // Revisa si aún tiene préstamos activos
+                            boolean hasActiveLoans = false;
+                            for (Loan l : loans) {
+                                boolean sameUser =
+                                        l.getStudent().equals(studentName);
+
+                                boolean stillActive =
+                                        !l.isReturned();
+                                if (sameUser && stillActive) {
+
+                                    hasActiveLoans = true;
+                                    break;
+                                }
+                            }
+
+                            // Actualiza estado de deudor
+                            user.setDebtor(hasActiveLoans);
+                            break;
+                        }
+                    }         
+            return true;
+          }
+        }
             return false;
     }
+
     public ArrayList<User> getUsers(){
     	return users;
     }
@@ -80,5 +125,4 @@ public class Library {
     	return loans;
     }
     
- 
 }
