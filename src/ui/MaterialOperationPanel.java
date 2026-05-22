@@ -7,11 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class OperationUserPanel extends JPanel{
-	
+public class MaterialOperationPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	JLabel lblName,lblTittle,lblCarnet;
-	JTextField txtName,txtCarnet;
+	JLabel lblName,lblTittle,lblCode,lblAuthor, lblYear;
+	JTextField txtName,txtCarnet,txtAuthor,txtYear;
 	JButton bttBack, bttCreate, bttRead, bttUpdate, bttDelete;
 	
 	private MainFrame mainFrame;
@@ -19,40 +18,56 @@ public class OperationUserPanel extends JPanel{
 	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
 	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
 	
-	public OperationUserPanel(MainFrame window){
+	public MaterialOperationPanel(MainFrame window){
 		this.mainFrame = window;
 		init();
 		
 	}
 	public void init() {
 		setLayout(null);
-		lblName = new JLabel("Nombre: ");
-		lblCarnet = new JLabel("Carnet: ");
-		lblTittle = new JLabel("Usuarios");
+		lblName = new JLabel("Titulo: ");
+		lblCode = new JLabel("Codigo: ");
+		lblTittle = new JLabel("Materiales");
+		lblAuthor = new JLabel("Autor: ");
+		lblYear = new JLabel("Año: ");
 		
 		lblTittle.setFont(fontTittle);
 		lblName.setFont(fontRegular);
-		lblCarnet.setFont(fontRegular);
+		lblCode.setFont(fontRegular);
+		lblAuthor.setFont(fontRegular);
+		lblYear.setFont(fontRegular);
 		
-		lblCarnet.setBounds(30,200,200,30);
-		lblName.setBounds(30,300,200,30);
 		lblTittle.setBounds(330, 50, 300, 40);
+		lblCode.setBounds(30,150,200,35);
+		lblName.setBounds(30,230,200,30);
+		lblAuthor.setBounds(30,310,200,30);
+		lblYear.setBounds(30,390,200,30);
 		
 		add(lblName);
-		add(lblCarnet);
+		add(lblCode);
 		add(lblTittle);
+		add(lblAuthor);
+		add(lblYear);
 		
 		txtName = new JTextField();
 		txtCarnet = new JTextField();
+		txtAuthor = new JTextField();
+		txtYear = new JTextField();
 		
-		txtCarnet.setBounds(230, 200,400,50);
-		txtName.setBounds(230,300,400,50);
+		txtCarnet.setBounds(230, 150,400,50);
+		txtName.setBounds(230,230,400,50);
+		txtAuthor.setBounds(230,310,400,50);
+		txtYear.setBounds(230,390,400,50);
 		
 		txtCarnet.setFont(fontRegular);
 		txtName.setFont(fontRegular);
+		txtAuthor.setFont(fontRegular);
+		txtYear.setFont(fontRegular);
 		
 		add(txtCarnet);
 		add(txtName);
+		add(txtAuthor);
+		add(txtYear);
 		
 		bttBack = new JButton("Regresar");
 		bttCreate = new JButton("Guardar");
