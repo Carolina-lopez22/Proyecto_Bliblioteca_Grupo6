@@ -4,21 +4,22 @@ import java.util.ArrayList;
 
 public class Library {
 
-    // TODO Array para lista de libros
+    private ArrayList<Book> books;
 	
     // Lista de usuarios
     private ArrayList<User> users;
-
-    // TODO Array ista de préstamos
+    
+    private ArrayList<Loan> loans;
     
     public Library() {
-
+    	books = new ArrayList<>();
         users = new ArrayList<>();
-       
+        loans = new ArrayList<>();
+        
     }
     // Método para agregar un libro
-    public void newBook() {
-        //TODO Metodo a completar hasta que se cree la clase book
+    public void newBook(Book book) {
+       books.add(book);
     }
 
     // Método para agregar un usuario
@@ -27,38 +28,57 @@ public class Library {
     }
 
     // Método para prestar un libro
-    public void loanBook() {
-       //TODO MEtodo a completar haste que se cree la clase loan(Prestamos)
-    }
-
-    // Método para devolver un libro
-    public void returnBook() {
-        //TODO En proceso 
-    }
-
-    // Para mostrar todos los libros
-    public void showBooks() {
-
-        //TODO En proceso
-    }
-
-    // Para mostrar todos los usuarios
-    public void showUsers() {
-
-        if (users.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-            return;
-        }
-
-        for (User user : users) {
-            System.out.println(user);
-        }
-    }
-
-    // Mostrar todos los préstamos
-    public void showLoans() {
+    public boolean loanBook(User user, Book book, int maxDays) {
+    	if(!book.canBeLoaned()) {
+    		return false;
+      }
+    	Loan loan = new Loan
+    			(user.getName(), book.getTitle(), maxDays);
     	
-        //TODO En proceso
+    	loans.add(loan); // guarda el prestamo
+    	book.loanCopy();// reducir las copias que hay disponibles
+    	user.setDebtor(true); //Para usuarios que tienen prestamos
+    	return true;
     }
+    // Método para devolver un libro
+    public boolean returnBook(String studentName, String bookTitle) {   		
+    		for (Loan loan : loans) {
+    		
+    			boolean sameStudent =
+                        loan.getStudent().equals(studentName);
 
+                boolean sameBook =
+                        loan.getBook().equals(bookTitle);
+
+                boolean activeLoan =
+                        !loan.isReturned();
+
+                if (sameStudent && sameBook && activeLoan) {
+                    // Para marcar como devuelto
+                    loan.markAsReturned();
+                    
+                    // Buscar libro para aumentar copias
+                    for (Book book : books) {
+                        if (book.getTitle().equals(bookTitle)) {
+                            book.returnCopy();
+                            break;
+        }
+           }   return true;
+                }
+            }
+            return false;
+    }
+    public ArrayList<User> getUsers(){
+    	return users;
+    }
+    
+    public ArrayList<Book> getBooks(){
+    	return books;
+    }
+    
+    public ArrayList<Loan> getLoans(){
+    	return loans;
+    }
+    
+ 
 }

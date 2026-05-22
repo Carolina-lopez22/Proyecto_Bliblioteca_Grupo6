@@ -12,10 +12,7 @@ public class Main {
 
 		        library.newUser(user1);
 		        library.newUser(user2);
-		       
-		        System.out.println("Usuarios");
-		        library.showUsers();
-
+		               
 		    }
 		}        
 	

@@ -4,30 +4,39 @@ public class User {
 
     private int id;
     private String name;
+    private boolean debtor;
 
     public User(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return "ID: " + id + "  Nombre: " + name;
-    }
+	public boolean isDebtor() {
+		return debtor;
+	}
+
+	public void setDebtor(boolean debtor) {
+		this.debtor = debtor;
+	}
+
+	@Override
+	public String toString() {
+		return id + " " + name + " Deudor: " + (debtor ? "Si" : "No");
+}
 }
