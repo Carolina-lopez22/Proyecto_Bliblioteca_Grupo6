@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class MainFrame extends JFrame{
 	
-	//Esta me lo generó el IDE para evitar una advertencia, mejor no tocarlo
+	//Esta me lo genero el IDE para evitar una advertencia, mejor no tocarlo
 	private static final long serialVersionUID = 1L;
 	private CardLayout layout;
 	private JPanel container;	
@@ -29,10 +29,13 @@ public class MainFrame extends JFrame{
 		
 		MainPanel mainPanel = new MainPanel(this);
 		OperationUserPanel OpUserPanel = new OperationUserPanel(this);
+		MaterialOperationPanel OpMaterialPanel = new MaterialOperationPanel(this);
+		LoanOperationPanel OpLoanPanel = new LoanOperationPanel(this);
 		
 		container.add(mainPanel,"Principal");
 		container.add(OpUserPanel,"OpUser");
-		
+		container.add(OpMaterialPanel, "OpMaterial");
+		container.add(OpLoanPanel,"OpLoan");
 		
 		layout.show(container, "Principal");
 		
@@ -45,6 +48,7 @@ public class MainFrame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
+		new MainFrame();
 		
 	}
 }

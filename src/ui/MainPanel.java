@@ -89,6 +89,14 @@ public class MainPanel extends JPanel{
 			mainFrame.showPanel("OpUser");
 		});
 		
+		bttOpMaterial.addActionListener(e -> {
+			mainFrame.showPanel("OpMaterial");
+		});
+		
+		bttOpLoan.addActionListener(e -> {
+			mainFrame.showPanel("OpLoan");
+		});
+		
 		bttExit.addActionListener(e -> {
 			System.exit(0);
 		});
