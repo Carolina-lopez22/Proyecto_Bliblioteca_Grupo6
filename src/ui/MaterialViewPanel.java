@@ -14,10 +14,11 @@ public class MaterialViewPanel extends JPanel{
 	JButton bttBack;
 	private JTable tableMaterials;
 	private JScrollPane scroll;
+	MaterialTableModel model;
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
+	private Font fontRegular = new Font("Arial",Font.PLAIN, 18);
 	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
 	
 	public MaterialViewPanel(MainFrame window){
@@ -36,7 +37,7 @@ public class MaterialViewPanel extends JPanel{
 		
 		add(lblTittle);
 		
-		MaterialTableModel model = new MaterialTableModel(mainFrame.library.getBooks());
+		model = new MaterialTableModel(mainFrame.library.getBooks());
 		
 		tableMaterials = new JTable(model);
 		

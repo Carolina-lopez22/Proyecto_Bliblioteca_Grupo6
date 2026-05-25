@@ -14,6 +14,9 @@ public class MainFrame extends JFrame{
 	private CardLayout layout;
 	private JPanel container;
 	Library library;
+	UserViewPanel SeeUserPanel ;
+	MaterialViewPanel SeeMaterialPanel;
+	LoanViewPanel SeeLoanPanel;
 	
 	public MainFrame() {
 		this.library = new Library();
@@ -36,9 +39,9 @@ public class MainFrame extends JFrame{
 		OperationUserPanel OpUserPanel = new OperationUserPanel(this);
 		MaterialOperationPanel OpMaterialPanel = new MaterialOperationPanel(this);
 		LoanOperationPanel OpLoanPanel = new LoanOperationPanel(this);
-		MaterialViewPanel SeeMaterialPanel = new MaterialViewPanel(this);
-		UserViewPanel SeeUserPanel = new UserViewPanel(this);
-		LoanViewPanel SeeLoanPanel = new LoanViewPanel(this);
+		SeeMaterialPanel = new MaterialViewPanel(this);
+		SeeUserPanel = new UserViewPanel(this);
+		SeeLoanPanel = new LoanViewPanel(this);
 		
 		container.add(mainPanel,"Principal");
 		container.add(OpUserPanel,"OpUser");
@@ -56,6 +59,9 @@ public class MainFrame extends JFrame{
 	
 	public void showPanel(String name) {
 		layout.show(container, name);
+		if (name.equals("SeeMaterial")) SeeMaterialPanel.model.fireTableDataChanged();
+		else if (name.equals("SeeUser")) SeeUserPanel.model.fireTableDataChanged();
+		else if (name.equals("SeeLoan")) SeeLoanPanel.model.fireTableDataChanged();;
 	}
 	
 	public static void main(String[] args) {

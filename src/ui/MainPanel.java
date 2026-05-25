@@ -99,7 +99,10 @@ public class MainPanel extends JPanel{
 		
 		bttSeeMaterial.addActionListener(e -> mainFrame.showPanel("SeeMaterial"));
 		
-		bttSeeUser.addActionListener(e -> mainFrame.showPanel("SeeUser"));
+		bttSeeUser.addActionListener(e -> {
+			
+			mainFrame.showPanel("SeeUser");
+			});
 		
 		bttSeeLoans.addActionListener(e -> mainFrame.showPanel("SeeLoan"));
 		

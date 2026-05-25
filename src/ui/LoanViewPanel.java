@@ -14,6 +14,7 @@ public class LoanViewPanel extends JPanel{
 	JButton bttBack;
 	private JTable tableLoans;
 	private JScrollPane scroll;
+	LoanTableModel model;
 	
 	private MainFrame mainFrame;
 	
@@ -36,7 +37,7 @@ public class LoanViewPanel extends JPanel{
 		
 		add(lblTittle);
 		
-		LoanTableModel model = new LoanTableModel(mainFrame.library.getLoans());
+		model = new LoanTableModel(mainFrame.library.getLoans());
 		
 		tableLoans = new JTable(model);
 		

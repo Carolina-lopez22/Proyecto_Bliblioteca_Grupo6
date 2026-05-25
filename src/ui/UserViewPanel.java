@@ -14,10 +14,11 @@ public class UserViewPanel extends JPanel{
 	JButton bttBack;
 	private JTable tableUsers;
 	private JScrollPane scroll;
+	UserTableModel model;
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
+	private Font fontRegular = new Font("Arial",Font.PLAIN, 18);
 	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
 	
 	public UserViewPanel(MainFrame window){
@@ -36,7 +37,7 @@ public class UserViewPanel extends JPanel{
 		
 		add(lblTittle);
 		
-		UserTableModel model = new UserTableModel(mainFrame.library.getUsers());
+		model = new UserTableModel(mainFrame.library.getUsers());
 		
 		tableUsers = new JTable(model);
 		
@@ -56,6 +57,7 @@ public class UserViewPanel extends JPanel{
 		
 		bttBack.addActionListener(e -> {
 			mainFrame.showPanel("Principal");
+			model.fireTableDataChanged();
 		});
 	}
 }
