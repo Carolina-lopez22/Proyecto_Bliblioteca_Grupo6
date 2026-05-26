@@ -5,9 +5,14 @@ import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import models.Book;
+import models.Loan;
+import models.User;
 
 public class LoanOperationPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -29,11 +34,11 @@ public class LoanOperationPanel extends JPanel{
 	}
 	public void init() {
 		setLayout(null);
-		lblCarnet = new JLabel("Estudiante: ");
+		lblCarnet = new JLabel("Carnet: ");
 		lblDate = new JLabel("Fecha: ");
 		lblTittle = new JLabel("Prestamos");
 		lblReturned = new JLabel("Devuelto: ");
-		lblMaterial = new JLabel("Material: ");
+		lblMaterial = new JLabel("Codigo: ");
 		
 		lblTittle.setFont(fontTittle);
 		lblCarnet.setFont(fontRegular);
@@ -64,6 +69,8 @@ public class LoanOperationPanel extends JPanel{
 		txtCarnet.setFont(fontRegular);
 		txtMaterial.setFont(fontRegular);
 		txtDate.setFont(fontRegular);
+		
+		txtDate.setEditable(false);
 		
 		add(txtCarnet);
 		add(txtMaterial);
@@ -105,6 +112,107 @@ public class LoanOperationPanel extends JPanel{
 		bttBack.addActionListener(e -> {
 			mainFrame.showPanel("Principal");
 		});
+		
+		bttCreate.addActionListener(e -> enterLoan());
+		bttRead.addActionListener(e -> searchLoan());
+		bttUpdate.addActionListener(e -> updateLoan());
+		bttDelete.addActionListener(e -> deleteLoan());
+	}
+	
+	public void enterLoan() {
+		String nm = txtMaterial.getText();
+		String cn = txtCarnet.getText();
+		
+		if(nm.equals("") || cn.equals("") ) {JOptionPane.showMessageDialog(
+				this, "Todos los campos se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
+		return;}
+		
+		User user = mainFrame.library.findUserById(cn);
+		Book book = mainFrame.library.findBookById(nm);
+		
+		if (user == null || book == null) {
+			JOptionPane.showMessageDialog(
+					this, "Libro o usuario no encontrado, pruebe otros identificadores.","Advertencia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		if(!mainFrame.library.loanBook(user,book,20)) {
+			JOptionPane.showMessageDialog(
+					this, "No es posible prestar el libro","Advertencia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		txtMaterial.setText("");
+		txtCarnet.setText("");
+		txtDate.setText("");
+		buttonGroup.clearSelection();
+		JOptionPane.showMessageDialog(
+				this, "Libro prestado con exito con exito.","Nuevo Libro",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void searchLoan() {
+		String nm = txtMaterial.getText();
+		String cn = txtCarnet.getText();
+		
+		Loan temp;
+		
+		if(nm.equals("") || cn.equals("") ) {JOptionPane.showMessageDialog(
+				this, "Libro y Carnet se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
+		return;}
+		
+		temp = mainFrame.library.searchLoan(nm, cn);
+		
+		if(temp == null) {
+			JOptionPane.showMessageDialog(
+					this, "No se encontró prestamo con usuario y libro.","Advertencia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		txtDate.setText(temp.getLoanDate().toString());
+		if (temp.isReturned()) rdbReturned.setSelected(true);
+		else rdbNotReturned.setSelected(true);
+	}
+	
+	public void updateLoan() {
+		String nm = txtMaterial.getText();
+		String cn = txtCarnet.getText();
+		
+		if(nm.equals("") || cn.equals("") ) {JOptionPane.showMessageDialog(
+				this, "Libro y Carnet se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
+		return;}
+		
+		if (rdbReturned.isSelected()) {
+			if(mainFrame.library.returnBook(cn, nm)) {
+				JOptionPane.showMessageDialog(
+						this, "Libro devuelto con exito.","Exito",JOptionPane.INFORMATION_MESSAGE);
+				return;
+			} else {
+				JOptionPane.showMessageDialog(
+						this, "No se pudo devolver el libro.","Advertencia",JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+		}
+		
+	}
+	
+	public void deleteLoan() {
+		String nm = txtMaterial.getText();
+		String cn = txtCarnet.getText();
+		
+		if(nm.equals("") || cn.equals("") ) {JOptionPane.showMessageDialog(
+				this, "Libro y Carnet se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
+		return;}
+		
+		if (!mainFrame.library.deleteLoan(cn,nm)) {
+			JOptionPane.showMessageDialog(this, "No se pudo completar la operacion.","Advertencia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		txtMaterial.setText("");
+		txtCarnet.setText("");
+		txtDate.setText("");
+		buttonGroup.clearSelection();
+		JOptionPane.showMessageDialog(
+				this, "Libro borrado con exito.","Borrado",JOptionPane.INFORMATION_MESSAGE);
 	}
 }
 

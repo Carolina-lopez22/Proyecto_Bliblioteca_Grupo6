@@ -130,7 +130,7 @@ public class MaterialOperationPanel extends JPanel{
 		
 		if(!mainFrame.library.newBook(cn,nm,au,year,copies)) {
 			JOptionPane.showMessageDialog(
-					this, "Carnet no disponible","Advertencia",JOptionPane.WARNING_MESSAGE);
+					this, "Codigo no disponible","Advertencia",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		txtName.setText("");

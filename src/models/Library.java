@@ -126,22 +126,31 @@ public class Library {
     		return false;
       }
     	Loan loan = new Loan
-    			(user.getName(), book.getTitle(), maxDays);
+    			(user.getId(), book.getUniqueCode(), maxDays);
     	
     	loans.add(loan); // guarda el prestamo
     	book.loanCopy();// reducir las copias que hay disponibles 
     	user.setDebtor(true); //Para usuarios que tienen prestamos
     	return true;
     }
+    
+    public Loan searchLoan(String book, String user) {
+    	for (Loan l:loans) {
+    		if (l.getBook().equals(book) && l.getStudent().equals(user)) {
+    			return l;
+    		}
+    	}
+    	return null;
+    }
     // Método para devolver un libro
-    public boolean returnBook(String studentName, String bookTitle) {   		
+    public boolean returnBook(String studentId, String bookCode) {   		
     		for (Loan loan : loans) {
     		
     			boolean sameStudent =
-                        loan.getStudent().equals(studentName);
+                        loan.getStudent().equals(studentId);
 
                 boolean sameBook =
-                        loan.getBook().equals(bookTitle);
+                        loan.getBook().equals(bookCode);
 
                 boolean activeLoan =
                         !loan.isReturned();
@@ -152,7 +161,7 @@ public class Library {
                     
                     // Buscar libro para aumentar copias
                     for (Book book : books) {
-                        if (book.getTitle().equals(bookTitle)) {
+                        if (book.getUniqueCode().equals(bookCode)) {
                             book.returnCopy();
                             break;
                }
@@ -160,13 +169,13 @@ public class Library {
                     // Buscar usuario para actualizarlo
 
                     for (User user : users) {
-                        if (user.getName().equals(studentName)) {
+                        if (user.getId().equals(studentId)) {
                         	
                             // Revisa si aún tiene préstamos activos
                             boolean hasActiveLoans = false;
                             for (Loan l : loans) {
                                 boolean sameUser =
-                                        l.getStudent().equals(studentName);
+                                        l.getStudent().equals(studentId);
 
                                 boolean stillActive =
                                         !l.isReturned();
@@ -186,6 +195,18 @@ public class Library {
           }
         }
             return false;
+    }
+    
+    public boolean deleteLoan(String student, String book) {
+    	for (int i = 0; i < loans.size(); i++) {
+    		Loan temp = loans.get(i);
+    		if(temp.getStudent().equals(student) && temp.getBook().equals(book)) {
+    			loans.remove(i);
+    			return true;
+    		}
+    	}
+    	
+    	return false;
     }
 
     public ArrayList<User> getUsers(){

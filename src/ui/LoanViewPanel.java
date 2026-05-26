@@ -18,7 +18,7 @@ public class LoanViewPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
+	private Font fontRegular = new Font("Arial",Font.PLAIN, 18);
 	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
 	
 	public LoanViewPanel(MainFrame window){
