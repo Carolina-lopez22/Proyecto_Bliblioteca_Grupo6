@@ -1,4 +1,5 @@
 package models;
+import java.io.Serializable;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -8,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * Guarda el libro prestado, el estudiante, la fecha del préstamo,
  * los días máximos permitidos y si ya fue devuelto.
  */
-public class Loan {
+public class Loan implements Serializable {
 
     private String student;          // Nombre del estudiante que realiza el préstamo
     private String book;             // Libro prestado (puede ser código o título)

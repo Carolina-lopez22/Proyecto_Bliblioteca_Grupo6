@@ -18,10 +18,10 @@ public class MainFrame extends JFrame{
 	MaterialViewPanel SeeMaterialPanel;
 	LoanViewPanel SeeLoanPanel;
 	
-	public MainFrame() {
-		this.library = new Library();
-		init();
-		
+	public MainFrame(Library library) {
+		this.library = library;
+		initComponents();
+			
 		//Aqui van todo lo que tiene que ver con la ventana principal
 		setBounds(0,0,800,600);
 		setTitle("BIBLIOTECA 2.0");
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void init() {
+	public void initComponents() {
 		
 		layout = new CardLayout();
 		container = new JPanel(layout);
@@ -65,7 +65,12 @@ public class MainFrame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		new MainFrame();
+		 Library library = new Library();
+	        
+	        library.loadData();
+	        
+	        MainFrame frame = new MainFrame(library);
+	               frame.setVisible(true);
 		
 	}
 }

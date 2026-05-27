@@ -1,5 +1,6 @@
 package models;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Library {
@@ -16,6 +17,8 @@ public class Library {
         users = new ArrayList<>();
         loans = new ArrayList<>();
         
+        loadData();
+        
     }
     // Método para agregar un libro
     public void newBook(Book book) {
@@ -29,6 +32,7 @@ public class Library {
     		}
     	}
     	books.add(new Book(id,name,author,year,copies));
+    	saveData();
     	return true;
     }
 
@@ -44,6 +48,7 @@ public class Library {
     		}
     	}
     	users.add(new User(c,n));
+    	saveData();
     	return true;
     }
     // MEtodo para buscar Usuario
@@ -62,6 +67,7 @@ public class Library {
     		String temp = users.get(i).getId();
     		if (temp.equals(id)) {
     			users.set(i, n);
+    			saveData();
     			return true;
     		}
     		
@@ -74,6 +80,7 @@ public class Library {
     		String temp = users.get(i).getId();
     		if (temp.equals(id)) {
     			users.remove(i);
+    			saveData();
     			return true;
     		}
     		
@@ -104,6 +111,7 @@ public class Library {
     	for (int i = 0; i< books.size(); i++) {
     		temp = books.get(i).getUniqueCode();
     		if (temp.equals(id)) { books.set(i, b);
+    		saveData();
     		return true;}
     	}
     	return false;
@@ -115,6 +123,7 @@ public class Library {
     		temp = books.get(i).getUniqueCode();
     		if (temp.equals(id)) { 
     			books.remove(i);
+    			saveData();
     			return true;}
     	}
     	return false;
@@ -131,6 +140,7 @@ public class Library {
     	loans.add(loan); // guarda el prestamo
     	book.loanCopy();// reducir las copias que hay disponibles 
     	user.setDebtor(true); //Para usuarios que tienen prestamos
+    	saveData();
     	return true;
     }
     
@@ -190,7 +200,8 @@ public class Library {
                             user.setDebtor(hasActiveLoans);
                             break;
                         }
-                    }         
+                    }   
+            saveData();
             return true;
           }
         }
@@ -202,6 +213,7 @@ public class Library {
     		Loan temp = loans.get(i);
     		if(temp.getStudent().equals(student) && temp.getBook().equals(book)) {
     			loans.remove(i);
+    			saveData();
     			return true;
     		}
     	}
@@ -220,5 +232,46 @@ public class Library {
     public ArrayList<Loan> getLoans(){
     	return loans;
     }
+    //Agregando Percistencia 
     
+    // Metodo para guardar datos 
+    public void saveData() {
+
+        try {
+
+            ObjectOutputStream output =
+                    new ObjectOutputStream(
+                            new FileOutputStream("library.dat"));
+
+            output.writeObject(books);
+            output.writeObject(users);
+            output.writeObject(loans);
+            
+            output.close();
+
+        } catch (IOException e) {
+         e.printStackTrace();
+        }
+    }
+    
+    //Metodo para guardar datos
+    @SuppressWarnings("unchecked")
+    public void loadData() {
+
+        try {
+
+            ObjectInputStream input =
+                    new ObjectInputStream(
+                            new FileInputStream("library.dat"));
+
+            books = (ArrayList<Book>) input.readObject();
+            users = (ArrayList<User>) input.readObject();
+            loans = (ArrayList<Loan>) input.readObject();
+
+            input.close();
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+    }
 }
