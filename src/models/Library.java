@@ -11,15 +11,52 @@ public class Library {
     private ArrayList<User> users;
     
     private ArrayList<Loan> loans;
+
     
     public Library() {
     	books = new ArrayList<>();
-        users = new ArrayList<>();
         loans = new ArrayList<>();
-        
+        users = new ArrayList<>();
         loadData();
-        
+        if (users.isEmpty()) {
+
+            users.add( new Admin("admin", "Administrador","1234")
+            );
+            saveData();
+        }
     }
+    public Admin login(String user, String pass) {
+
+        for (User u : users) {
+        if( u instanceof Admin ){
+        	Admin a = (Admin) u;
+        	
+            if (a.getId().equals(user) &&
+                a.getPassword().equals(pass)) {
+
+                return a;
+            }
+        }
+        }
+        return null;
+    }
+    
+       public boolean addAdmin(String id, String name, String pass) {
+
+        for (User u : users) {
+
+            if (u.getId().equals(id)) {
+                return false;
+            }
+        }
+
+        users.add(new Admin(id, name, pass));
+
+        saveData();
+
+        return true;
+    }
+    
     // Método para agregar un libro
     public void newBook(Book book) {
        books.add(book);
@@ -139,7 +176,6 @@ public class Library {
     	
     	loans.add(loan); // guarda el prestamo
     	book.loanCopy();// reducir las copias que hay disponibles 
-    	user.setDebtor(true); //Para usuarios que tienen prestamos
     	saveData();
     	return true;
     }
@@ -176,11 +212,8 @@ public class Library {
                             break;
                }
         }
-                    // Buscar usuario para actualizarlo
+                   
 
-                    for (User user : users) {
-                        if (user.getId().equals(studentId)) {
-                        	
                             // Revisa si aún tiene préstamos activos
                             boolean hasActiveLoans = false;
                             for (Loan l : loans) {
@@ -196,11 +229,15 @@ public class Library {
                                 }
                             }
 
-                            // Actualiza estado de deudor
-                            user.setDebtor(hasActiveLoans);
-                            break;
-                        }
-                    }   
+                    for (User user : users) {
+                     if (user.getId().equals(studentId)) {             
+                    	if (user instanceof Student) {
+                    		Student s = (Student) user;
+                    		s.setDebtor(hasActiveLoans);
+                    	}
+                         break;   
+                     }
+                    }
             saveData();
             return true;
           }
@@ -220,6 +257,21 @@ public class Library {
     	
     	return false;
     }
+    public boolean addStudent(String id, String name) {
+
+        for (User s : users) {
+
+            if (s.getId().equals(id)) {
+                return false;
+            }
+        }
+
+        users.add(new Student(id, name, false));
+
+        saveData();
+
+        return true;
+    }
 
     public ArrayList<User> getUsers(){
     	return users;
@@ -232,6 +284,7 @@ public class Library {
     public ArrayList<Loan> getLoans(){
     	return loans;
     }
+   
     //Agregando Percistencia 
     
     // Metodo para guardar datos 
@@ -246,7 +299,7 @@ public class Library {
             output.writeObject(books);
             output.writeObject(users);
             output.writeObject(loans);
-            
+         
             output.close();
 
         } catch (IOException e) {
@@ -267,6 +320,7 @@ public class Library {
             books = (ArrayList<Book>) input.readObject();
             users = (ArrayList<User>) input.readObject();
             loans = (ArrayList<Loan>) input.readObject();
+           
 
             input.close();
 

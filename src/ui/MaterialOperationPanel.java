@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import models.Admin;
 import models.Book;
 
 public class MaterialOperationPanel extends JPanel{
@@ -106,6 +107,12 @@ public class MaterialOperationPanel extends JPanel{
 		bttRead.addActionListener(e -> searchMaterial());
 		bttUpdate.addActionListener(e -> updateMaterial());
 		bttDelete.addActionListener(e -> deleteMaterial());
+		
+		if(!(mainFrame.currentUser instanceof Admin)) {
+
+		    bttDelete.setEnabled(false);
+		    bttUpdate.setEnabled(false);
+		}
 		
 	}
 	

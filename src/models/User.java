@@ -3,14 +3,15 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private String id;
-    private String name;
-    private boolean debtor;
+	private static final long serialVersionUID = 1L;
+	protected String id;
+    protected String name;
 
-    public User(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+	public User(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public String getId() {
 		return id;
@@ -28,16 +29,9 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public boolean isDebtor() {
-		return debtor;
-	}
-
-	public void setDebtor(boolean debtor) {
-		this.debtor = debtor;
-	}
 
 	@Override
 	public String toString() {
-		return id + " " + name + " Deudor: " + (debtor ? "Si" : "No");
+		return id + " " + name;
 }
 }

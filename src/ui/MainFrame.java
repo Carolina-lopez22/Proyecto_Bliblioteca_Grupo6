@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import models.Library;
+import models.User;
 
 public class MainFrame extends JFrame{
 	
@@ -13,13 +14,15 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private CardLayout layout;
 	private JPanel container;
+	User currentUser;
 	Library library;
 	UserViewPanel SeeUserPanel ;
 	MaterialViewPanel SeeMaterialPanel;
 	LoanViewPanel SeeLoanPanel;
 	
-	public MainFrame(Library library) {
+	public MainFrame(Library library, User user) {
 		this.library = library;
+		this.currentUser = user;
 		initComponents();
 			
 		//Aqui van todo lo que tiene que ver con la ventana principal
@@ -65,12 +68,14 @@ public class MainFrame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
+		
+		new LoginFrame();
 		 Library library = new Library();
 	        
 	        library.loadData();
 	        
-	        MainFrame frame = new MainFrame(library);
-	               frame.setVisible(true);
+	        
+	        
 		
 	}
 }

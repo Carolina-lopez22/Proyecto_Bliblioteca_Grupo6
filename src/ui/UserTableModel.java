@@ -1,10 +1,9 @@
 package ui;
 
 import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
-
 import models.User;
+import models.Student;
 
 public class UserTableModel extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
@@ -46,12 +45,15 @@ public class UserTableModel extends AbstractTableModel{
 		            return m.getName();
 
 		        case 2:
-		            return m.isDebtor() ? "Si":"No";
-
+		        	if (m instanceof Student) {
+		        		Student s = (Student) m;
+		            return s.isDebtor() ? "Si":"No";
+		        	}
+		        	return "-";
+		        	
 		        default:
 		            return null;
 	}
-	
 	
 }
 }

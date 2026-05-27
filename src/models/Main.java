@@ -1,7 +1,5 @@
 package models;
 
-import ui.MainFrame;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,8 +9,7 @@ public class Main {
 				        
 		        library.loadData();
 		        
-		        MainFrame frame = new MainFrame(library);
-		               frame.setVisible(true);
+		     
 		    }
 		}        
 	

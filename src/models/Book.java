@@ -8,7 +8,8 @@ import java.time.Year;
  */
 public class Book implements Serializable {
 
-    private String uniqueCode;   // Código único del libro
+	private static final long serialVersionUID = 1L;
+	private String uniqueCode;   // Código único del libro
     private String title;        // Título del libro
     private String author;       // Autor del libro
     private int year;            // Año de publicación

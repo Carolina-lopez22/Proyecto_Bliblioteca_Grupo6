@@ -11,7 +11,8 @@ import java.time.temporal.ChronoUnit;
  */
 public class Loan implements Serializable {
 
-    private String student;          // Nombre del estudiante que realiza el préstamo
+	private static final long serialVersionUID = 1L;
+	private String student;          // Nombre del estudiante que realiza el préstamo
     private String book;             // Libro prestado (puede ser código o título)
     private LocalDate loanDate;      // Fecha en que se realizó el préstamo
     private int maxDays;             // Días máximos permitidos para devolver el libro
