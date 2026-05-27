@@ -1,5 +1,6 @@
 package models;
 import java.io.Serializable;
+import java.time.Year;
 /**
  * Representa un libro dentro del sistema de biblioteca.
  * Contiene información básica como código, título, autor, año y número de copias.
@@ -17,6 +18,18 @@ public class Book implements Serializable {
      * Constructor que inicializa todos los atributos del libro.
      */
     public Book(String uniqueCode, String title, String author, int year, int copies) {
+    	
+    	int currentYear = Year.now().getValue();
+        // Validación del año
+        if (year < 1450 || year > currentYear) {
+
+            throw new IllegalArgumentException(
+
+                "El año debe estar entre 1450 y " + currentYear
+
+            );
+        }
+            
         this.uniqueCode = uniqueCode;
         this.title = title;
         this.author = author;

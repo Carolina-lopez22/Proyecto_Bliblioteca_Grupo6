@@ -1,5 +1,5 @@
 package ui;
-
+import java.time.LocalDate;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -127,7 +127,18 @@ public class MaterialOperationPanel extends JPanel{
 		}
 		int year = Integer.parseInt(ye);
 		int copies = Integer.parseInt(cp);
-		
+		int currentYear = LocalDate.now().getYear();
+
+		if(year < 1000 || year > currentYear) {
+
+			JOptionPane.showMessageDialog(
+					this,
+					"Año inválido.",
+					"Advertencia",
+					JOptionPane.WARNING_MESSAGE);
+
+			return;
+		}
 		if(!mainFrame.library.newBook(cn,nm,au,year,copies)) {
 			JOptionPane.showMessageDialog(
 					this, "Codigo no disponible","Advertencia",JOptionPane.WARNING_MESSAGE);
