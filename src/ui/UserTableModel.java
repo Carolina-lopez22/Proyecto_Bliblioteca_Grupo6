@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import models.User;
 import models.Student;
-
 public class UserTableModel extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<User> users;
+    private boolean isAdmin;
+    
+	private final String[] columnsAdmin = {"Carnet","Nombre","Deudor"};
+	private final String[] columnsStudent = {"Carnet", "Nombre"}; 
 	
-	private final String[] columns = 
-		{"Carnet","Nombre","Deudor"};
-	
-	public UserTableModel(ArrayList<User> n) {
+	public UserTableModel(ArrayList<User> n, boolean isAdmin) {
 		this.users = n;
+		this.isAdmin = isAdmin;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return columns.length;
+		return isAdmin ? columnsAdmin.length : columnsStudent.length;
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class UserTableModel extends AbstractTableModel{
 	
 	@Override
 	public String getColumnName(int column) {
-		return columns[column];
+		return isAdmin ? columnsAdmin[column] : columnsStudent[column];
 	}
 
 	@Override
@@ -45,16 +46,12 @@ public class UserTableModel extends AbstractTableModel{
 		            return m.getName();
 
 		        case 2:
-		        	if (m instanceof Student) {
-		        		Student s = (Student) m;
-		            return s.isDebtor() ? "Si":"No";
-		        	}
-		        	return "-";
-		        	
-		        default:
-		            return null;
-	}
-	
-}
+		        	if (isAdmin) {
+	                    return (m instanceof Student) ? (((Student) m).isDebtor() ? "Si" : "No") : "-";
+	                }
+	                return null;
+	            default: return null;
+	        }
+	    }
 }
 

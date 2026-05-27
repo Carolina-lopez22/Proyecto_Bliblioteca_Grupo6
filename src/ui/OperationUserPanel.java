@@ -94,11 +94,13 @@ public class OperationUserPanel extends JPanel{
 				this, "Todos los campos se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
 		return;}
 		
-		if(!mainFrame.library.newUser(cn,nm)) {
+		boolean updated = mainFrame.library.newUser(cn,nm);
+		if(!updated){
 			JOptionPane.showMessageDialog(
 					this, "Carnet no disponible","Advertencia",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		
 		txtName.setText("");
 		txtCarnet.setText("");
 		JOptionPane.showMessageDialog(
@@ -130,8 +132,12 @@ public class OperationUserPanel extends JPanel{
 		
 		if(!mainFrame.library.updateUser(cn,nm)){
 			JOptionPane.showMessageDialog(this, "No se encontró usuario con id.","Advertencia",JOptionPane.WARNING_MESSAGE);
-		}
-		
+		} else {
+			
+        txtName.setText("");
+        txtCarnet.setText("");
+        JOptionPane.showMessageDialog(this, "Usuario actualizado.", "Actualización", JOptionPane.INFORMATION_MESSAGE);
+    }
 		
 	}
 	

@@ -212,11 +212,12 @@ public class MaterialOperationPanel extends JPanel{
 		int year = Integer.parseInt(ye);
 		int copies = Integer.parseInt(cp);
 		
-		if(!mainFrame.library.updateBook(cn,nm,au,year,copies)){
+		boolean updated = mainFrame.library.updateBook(cn,nm,au,year,copies);
+		if(!updated){
 			JOptionPane.showMessageDialog(this, "No se encontró libro con ID","Advertencia",JOptionPane.WARNING_MESSAGE);
 		}
 		JOptionPane.showMessageDialog(
-				this, "Libro actualizado con exito.","Borrado",JOptionPane.INFORMATION_MESSAGE);
+				this, "Libro actualizado con exito.","Actualizado",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void deleteMaterial() {

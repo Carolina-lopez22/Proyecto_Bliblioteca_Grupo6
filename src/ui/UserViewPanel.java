@@ -1,7 +1,7 @@
 package ui;
 
 import java.awt.Font;
-
+import models.Admin;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,7 +37,7 @@ public class UserViewPanel extends JPanel{
 		
 		add(lblTittle);
 		
-		model = new UserTableModel(mainFrame.library.getUsers());
+		model = new UserTableModel(mainFrame.library.getUsers(),mainFrame.currentUser instanceof Admin);
 		
 		tableUsers = new JTable(model);
 		

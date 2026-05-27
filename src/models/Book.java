@@ -22,11 +22,11 @@ public class Book implements Serializable {
     	
     	int currentYear = Year.now().getValue();
         // Validación del año
-        if (year < 1450 || year > currentYear) {
+        if (year < 1000 || year > currentYear) {
 
             throw new IllegalArgumentException(
 
-                "El año debe estar entre 1450 y " + currentYear
+                "El año debe estar entre 1000 y " + currentYear
 
             );
         }

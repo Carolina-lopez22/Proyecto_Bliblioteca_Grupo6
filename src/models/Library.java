@@ -84,7 +84,7 @@ public class Library {
     			return false;
     		}
     	}
-    	users.add(new User(c,n));
+    	users.add(new Student(c,n, false));
     	saveData();
     	return true;
     }
@@ -99,15 +99,14 @@ public class Library {
     }
 
     public boolean updateUser(String id, String name) {
-    	User n = new User(id,name);
+    	
     	for (int i = 0; i< users.size(); i++) {
-    		String temp = users.get(i).getId();
-    		if (temp.equals(id)) {
-    			users.set(i, n);
+    		 User u = users.get(i);
+    	        if (u.getId().equals(id)) {
+    	            u.setName(name); 
     			saveData();
     			return true;
-    		}
-    		
+    		}   		
     	}
     	return false;
     }
@@ -176,6 +175,10 @@ public class Library {
     	
     	loans.add(loan); // guarda el prestamo
     	book.loanCopy();// reducir las copias que hay disponibles 
+    	if (user instanceof Student) {
+            Student s = (Student) user;
+            s.setDebtor(true);
+        }
     	saveData();
     	return true;
     }
@@ -303,11 +306,13 @@ public class Library {
             output.close();
 
         } catch (IOException e) {
+        	System.out.println("Error al cargar datos 1");
          e.printStackTrace();
         }
     }
     
     //Metodo para guardar datos
+    
     @SuppressWarnings("unchecked")
     public void loadData() {
 
@@ -325,6 +330,7 @@ public class Library {
             input.close();
 
         } catch (Exception e) {
+        	System.out.println("Error al cargar datos");
         	e.printStackTrace();
         }
     }
