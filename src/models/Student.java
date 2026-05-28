@@ -1,10 +1,7 @@
 package models;
 
-import java.io.Serializable;
-
-public class Student extends User implements Serializable{
+public class Student extends User {
 	
-	private static final long serialVersionUID = 1L;
 	private boolean debtor;
 
 	public Student(String id, String name, boolean debtor) {

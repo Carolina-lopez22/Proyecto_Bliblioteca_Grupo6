@@ -12,7 +12,7 @@ public class LoanTableModel extends AbstractTableModel{
 	private ArrayList<Loan> loans;
 	
 	private final String[] columns = 
-		{"Estudiante","Libro","Fecha","Dias","Regresado"};
+		{"Estudiante","Libro","Fecha","Dias maximos","Regresado"};
 	
 	public LoanTableModel(ArrayList<Loan> n) {
 		this.loans = n;

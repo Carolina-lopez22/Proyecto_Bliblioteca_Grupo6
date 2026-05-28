@@ -1,14 +1,13 @@
 package models;
-import java.io.Serializable;
+
 import java.time.Year;
 /**
  * Representa un libro dentro del sistema de biblioteca.
  * Contiene información básica como código, título, autor, año y número de copias.
  * Incluye métodos para verificar disponibilidad y actualizar el número de copias.
  */
-public class Book implements Serializable {
+public class Book  {
 
-	private static final long serialVersionUID = 1L;
 	private String uniqueCode;   // Código único del libro
     private String title;        // Título del libro
     private String author;       // Autor del libro

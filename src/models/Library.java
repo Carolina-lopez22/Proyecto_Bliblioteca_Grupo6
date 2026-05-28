@@ -1,12 +1,16 @@
 package models;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Library {
-
-    private ArrayList<Book> books;
 	
+	private static final String FILE_BOOKS = "books.csv";
+	private static final String FILE_USERS = "users.csv";
+	private static final String FILE_LOANS = "loans.csv";
+	
+    private ArrayList<Book> books;
     // Lista de usuarios
     private ArrayList<User> users;
     
@@ -292,46 +296,152 @@ public class Library {
     
     // Metodo para guardar datos 
     public void saveData() {
+        saveBooks();
+        saveUsers();
+        saveLoans();
+    }
 
-        try {
-
-            ObjectOutputStream output =
-                    new ObjectOutputStream(
-                            new FileOutputStream("library.dat"));
-
-            output.writeObject(books);
-            output.writeObject(users);
-            output.writeObject(loans);
-         
-            output.close();
-
+    private void saveBooks() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_BOOKS))) {
+            for (Book b : books) {
+                pw.println(
+                    escapeCsv(b.getUniqueCode()) + "," +
+                    escapeCsv(b.getTitle())      + "," +
+                    escapeCsv(b.getAuthor())     + "," +
+                    b.getYear()                  + "," +
+                    b.getCopies()
+                );
+            }
         } catch (IOException e) {
-        	System.out.println("Error al cargar datos 1");
-         e.printStackTrace();
+            System.out.println("Error al guardar books.csv: " + e.getMessage());
         }
     }
-    
-    //Metodo para guardar datos
-    
-    @SuppressWarnings("unchecked")
-    public void loadData() {
 
-        try {
-
-            ObjectInputStream input =
-                    new ObjectInputStream(
-                            new FileInputStream("library.dat"));
-
-            books = (ArrayList<Book>) input.readObject();
-            users = (ArrayList<User>) input.readObject();
-            loans = (ArrayList<Loan>) input.readObject();
-           
-
-            input.close();
-
-        } catch (Exception e) {
-        	System.out.println("Error al cargar datos");
-        	e.printStackTrace();
+    private void saveUsers() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_USERS))) {
+            for (User u : users) {
+                if (u instanceof Admin) {
+                    Admin a = (Admin) u;
+                    pw.println("ADMIN,"   + escapeCsv(a.getId()) + "," + escapeCsv(a.getName()) + "," + escapeCsv(a.getPassword()));
+                } else if (u instanceof Student) {
+                    Student s = (Student) u;
+                    pw.println("STUDENT," + escapeCsv(s.getId()) + "," + escapeCsv(s.getName()) + "," + s.isDebtor());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar users.csv: " + e.getMessage());
         }
+    }
+
+    private void saveLoans() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_LOANS))) {
+            for (Loan l : loans) {
+                pw.println(
+                    escapeCsv(l.getStudent())   + "," +
+                    escapeCsv(l.getBook())      + "," +
+                    l.getLoanDate().toString()  + "," +
+                    l.getMaxDays()              + "," +
+                    l.isReturned()
+                );
+            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar loans.csv: " + e.getMessage());
+        }
+    }
+    // Para cargar los datos
+    public void loadData() {
+        loadBooks();
+        loadUsers();
+        loadLoans();
+    }
+
+    private void loadBooks() {
+        File f = new File(FILE_BOOKS);
+        if (!f.exists()) return;
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = splitCsv(line);
+                if (parts.length < 5) continue;
+                books.add(new Book(parts[0], parts[1], parts[2],
+                        Integer.parseInt(parts[3].trim()),
+                        Integer.parseInt(parts[4].trim())));
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer books.csv: " + e.getMessage());
+        }
+    }
+
+    private void loadUsers() {
+        File f = new File(FILE_USERS);
+        if (!f.exists()) return;
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = splitCsv(line);
+                if (parts.length < 4) continue;
+                switch (parts[0].trim().toUpperCase()) {
+                    case "ADMIN":
+                        users.add(new Admin(parts[1], parts[2], parts[3]));
+                        break;
+                    case "STUDENT":
+                        users.add(new Student(parts[1], parts[2], Boolean.parseBoolean(parts[3].trim())));
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer users.csv: " + e.getMessage());
+        }
+    }
+
+    private void loadLoans() {
+        File f = new File(FILE_LOANS);
+        if (!f.exists()) return;
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = splitCsv(line);
+                if (parts.length < 5) continue;
+                Loan loan = new Loan(parts[0], parts[1], Integer.parseInt(parts[3].trim()));
+                loan.setLoanDate(LocalDate.parse(parts[2].trim()));
+                if (Boolean.parseBoolean(parts[4].trim())) loan.markAsReturned();
+                loans.add(loan);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer loans.csv: " + e.getMessage());
+        }
+    }
+    private String escapeCsv(String value) {
+        if (value == null) return "";
+        if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
+            return "\"" + value.replace("\"", "\"\"") + "\"";
+        }
+        return value;
+    }
+
+    private String[] splitCsv(String line) {
+        ArrayList<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                if (inQuotes && i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                    current.append('"'); i++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (c == ',' && !inQuotes) {
+                result.add(current.toString());
+                current.setLength(0);
+            } else {
+                current.append(c);
+            }
+        }
+        result.add(current.toString());
+        return result.toArray(new String[0]);
     }
 }
