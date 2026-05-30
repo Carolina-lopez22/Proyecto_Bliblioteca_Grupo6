@@ -37,7 +37,7 @@ public class MainFrame extends JFrame{
 		
 		layout = new CardLayout();
 		container = new JPanel(layout);
-		
+		setResizable(false);
 		MainPanel mainPanel = new MainPanel(this);
 		OperationUserPanel OpUserPanel = new OperationUserPanel(this);
 		MaterialOperationPanel OpMaterialPanel = new MaterialOperationPanel(this);

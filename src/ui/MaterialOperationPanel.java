@@ -1,7 +1,9 @@
 package ui;
 import java.time.LocalDate;
+import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,8 +21,8 @@ public class MaterialOperationPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
-	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
+	private Font fontRegular = new Font("Segoe UI",Font.PLAIN, 18);
+	private Font fontTittle = new Font("Segoe UI",Font.BOLD, 28);
 	
 	public MaterialOperationPanel(MainFrame window){
 		this.mainFrame = window;
@@ -29,6 +31,7 @@ public class MaterialOperationPanel extends JPanel{
 	}
 	public void init() {
 		setLayout(null);
+		setBackground(new Color(245,245,245));
 		lblName = new JLabel("Titulo: ");
 		lblCode = new JLabel("Codigo: ");
 		lblTittle = new JLabel("Materiales");
@@ -44,10 +47,10 @@ public class MaterialOperationPanel extends JPanel{
 		lblCopies.setFont(fontRegular);
 		
 		lblTittle.setBounds(330, 50, 300, 40);
-		lblCode.setBounds(30,150,200,35);
-		lblName.setBounds(30,230,200,30);
-		lblAuthor.setBounds(30,310,200,30);
-		lblYear.setBounds(30,390,200,30);
+		lblCode.setBounds(30,130,200,35);
+		lblName.setBounds(30,210,200,30);
+		lblAuthor.setBounds(30,290,200,30);
+		lblYear.setBounds(30,370,200,30);
 		lblCopies.setBounds(30,450,200,30);
 		
 		add(lblName);
@@ -63,11 +66,11 @@ public class MaterialOperationPanel extends JPanel{
 		txtYear = new JTextField();
 		txtCopies = new JTextField();
 		
-		txtCode.setBounds(230, 150,400,50);
-		txtName.setBounds(230,230,400,50);
-		txtAuthor.setBounds(230,310,400,50);
-		txtYear.setBounds(230,390,400,50);
-		txtCopies.setBounds(230,450,400,50);
+		txtCode.setBounds(230, 125,400,50);
+		txtName.setBounds(230,205,400,50);
+		txtAuthor.setBounds(230,285,400,50);
+		txtYear.setBounds(230,365,400,50);
+		txtCopies.setBounds(230,445,400,50);
 		
 		txtCode.setFont(fontRegular);
 		txtName.setFont(fontRegular);
@@ -81,6 +84,12 @@ public class MaterialOperationPanel extends JPanel{
 		add(txtYear);
 		add(txtCopies);
 		
+		txtCode.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        txtName.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        txtAuthor.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        txtYear.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        txtCopies.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+		
 		bttBack = new JButton("Regresar");
 		bttCreate = new JButton("Guardar");
 		bttRead = new JButton("Buscar");
@@ -92,6 +101,31 @@ public class MaterialOperationPanel extends JPanel{
 		bttRead.setBounds(230,520,150,40);
 		bttUpdate.setBounds(420,520,150,40);
 		bttDelete.setBounds(610,520,150,40);
+		
+		bttBack.setFocusPainted(false);
+		bttBack.setBorderPainted(false);
+		bttBack.setBackground(new Color(70,120,255));
+		bttBack.setForeground(Color.WHITE);
+        
+		bttCreate.setFocusPainted(false);
+		bttCreate.setBorderPainted(false);
+		bttCreate.setBackground(new Color(70,120,255));
+		bttCreate.setForeground(Color.WHITE);
+        
+		bttRead.setFocusPainted(false);
+		bttRead.setBorderPainted(false);
+		bttRead.setBackground(new Color(70,120,255));
+		bttRead.setForeground(Color.WHITE);
+        
+		bttUpdate.setFocusPainted(false);
+		bttUpdate.setBorderPainted(false);
+		bttUpdate.setBackground(new Color(70,120,255));
+		bttUpdate.setForeground(Color.WHITE);
+        
+		bttDelete.setFocusPainted(false);
+		bttDelete.setBorderPainted(false);
+        bttDelete.setBackground(new Color(70,120,255));
+        bttDelete.setForeground(Color.WHITE);
 		
 		add(bttBack);
 		add(bttCreate);

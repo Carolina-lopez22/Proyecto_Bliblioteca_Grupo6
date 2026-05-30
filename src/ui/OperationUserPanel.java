@@ -1,7 +1,9 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,8 +21,8 @@ public class OperationUserPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 30);
-	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
+	private Font fontRegular = new Font("Segoe UI",Font.PLAIN, 18);
+	private Font fontTittle = new Font("Segoe UI",Font.BOLD, 28);
 	
 	public OperationUserPanel(MainFrame window){
 		this.mainFrame = window;
@@ -29,6 +31,7 @@ public class OperationUserPanel extends JPanel{
 	}
 	public void init() {
 		setLayout(null);
+		setBackground(new Color(245,245,245));
 		lblName = new JLabel("Nombre: ");
 		lblCarnet = new JLabel("Carnet: ");
 		lblTittle = new JLabel("Usuarios");
@@ -37,8 +40,8 @@ public class OperationUserPanel extends JPanel{
 		lblName.setFont(fontRegular);
 		lblCarnet.setFont(fontRegular);
 		
-		lblCarnet.setBounds(30,200,200,30);
-		lblName.setBounds(30,300,200,30);
+		lblCarnet.setBounds(30,210,200,30);
+		lblName.setBounds(30,310,200,30);
 		lblTittle.setBounds(330, 50, 300, 40);
 		
 		add(lblName);
@@ -54,6 +57,9 @@ public class OperationUserPanel extends JPanel{
 		txtCarnet.setFont(fontRegular);
 		txtName.setFont(fontRegular);
 		
+		txtCarnet.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        txtName.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+		
 		add(txtCarnet);
 		add(txtName);
 		
@@ -68,6 +74,31 @@ public class OperationUserPanel extends JPanel{
 		bttRead.setBounds(230,520,150,40);
 		bttUpdate.setBounds(420,520,150,40);
 		bttDelete.setBounds(610,520,150,40);
+		
+		bttBack.setFocusPainted(false);
+		bttBack.setBorderPainted(false);
+		bttBack.setBackground(new Color(70,120,255));
+		bttBack.setForeground(Color.WHITE);
+        
+		bttCreate.setFocusPainted(false);
+		bttCreate.setBorderPainted(false);
+		bttCreate.setBackground(new Color(70,120,255));
+		bttCreate.setForeground(Color.WHITE);
+        
+		bttRead.setFocusPainted(false);
+		bttRead.setBorderPainted(false);
+		bttRead.setBackground(new Color(70,120,255));
+		bttRead.setForeground(Color.WHITE);
+        
+		bttUpdate.setFocusPainted(false);
+		bttUpdate.setBorderPainted(false);
+		bttUpdate.setBackground(new Color(70,120,255));
+		bttUpdate.setForeground(Color.WHITE);
+        
+		bttDelete.setFocusPainted(false);
+		bttDelete.setBorderPainted(false);
+        bttDelete.setBackground(new Color(70,120,255));
+        bttDelete.setForeground(Color.WHITE);
 		
 		add(bttBack);
 		add(bttCreate);

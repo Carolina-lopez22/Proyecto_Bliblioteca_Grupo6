@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -18,8 +19,8 @@ public class LoanViewPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 18);
-	private Font fontTittle = new Font("Arial",Font.BOLD, 40);
+	private Font fontRegular = new Font("Segoe UI",Font.PLAIN, 18);
+	private Font fontTittle = new Font("Segoe UI",Font.BOLD, 28);
 	
 	public LoanViewPanel(MainFrame window){
 		this.mainFrame = window;
@@ -29,6 +30,7 @@ public class LoanViewPanel extends JPanel{
 	
 	public void init() {
 		setLayout(null);
+		setBackground(new Color(245,245,245));
 		lblTittle = new JLabel("Prestamos");
 		
 		lblTittle.setFont(fontTittle);
@@ -43,6 +45,18 @@ public class LoanViewPanel extends JPanel{
 		
 		tableLoans.setFont(fontRegular);
 		
+		tableLoans.setRowHeight(35);
+
+		tableLoans.getTableHeader().setFont(
+		    new Font("Segoe UI", Font.BOLD, 14)
+		);
+
+		tableLoans.getTableHeader().setBackground(
+		    new Color(70,120,255)
+		);
+
+		tableLoans.getTableHeader().setForeground(Color.WHITE);
+		
 		scroll = new JScrollPane(tableLoans);
 		
 		scroll.setBounds(30,100,740,400);
@@ -52,6 +66,11 @@ public class LoanViewPanel extends JPanel{
 		bttBack = new JButton("Regresar");
 		
 		bttBack.setBounds(20,20,200,40);
+		
+		bttBack.setFocusPainted(false);
+		bttBack.setBorderPainted(false);
+		bttBack.setBackground(new Color(70,120,255));
+		bttBack.setForeground(Color.WHITE);
 		
 		add(bttBack);
 		

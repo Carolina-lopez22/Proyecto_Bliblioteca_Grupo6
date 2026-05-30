@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -18,8 +19,8 @@ public class MainPanel extends JPanel{
 	//Esta variable es para guardar la ventana principal, para cambiar entre layouts
 	private MainFrame mainFrame;
 	
-	private Font fontRegular = new Font("Arial",Font.PLAIN, 20);
-	private Font fontTittle = new Font("Arial",Font.BOLD, 30);
+	private Font fontRegular = new Font("Segoe UI",Font.BOLD, 16);
+	private Font fontTittle = new Font("Segoe UI",Font.BOLD, 28);
 	
 	public MainPanel(MainFrame window) {
 		this.mainFrame = window;
@@ -28,6 +29,7 @@ public class MainPanel extends JPanel{
 	
 	public void init(){
 		this.setLayout(null);
+		setBackground(new Color(245,245,245));
 		
 		lblTittle = new JLabel("BIBLIOTECA 2.0");
 		lblMaterial = new JLabel("Materiales");
@@ -84,6 +86,41 @@ public class MainPanel extends JPanel{
 		bttSeeUser.setFont(fontRegular);
 		bttSeeLoans.setFont(fontRegular);
 		bttExit.setFont(fontRegular);
+		
+		bttOpMaterial.setFocusPainted(false);
+		bttOpMaterial.setBorderPainted(false);
+		bttOpMaterial.setBackground(new Color(70,120,255));
+		bttOpMaterial.setForeground(Color.WHITE);
+        
+		bttOpUser.setFocusPainted(false);
+		bttOpUser.setBorderPainted(false);
+		bttOpUser.setBackground(new Color(70,120,255));
+		bttOpUser.setForeground(Color.WHITE);
+        
+		bttOpLoan.setFocusPainted(false);
+		bttOpLoan.setBorderPainted(false);
+		bttOpLoan.setBackground(new Color(70,120,255));
+		bttOpLoan.setForeground(Color.WHITE);
+        
+		bttSeeMaterial.setFocusPainted(false);
+		bttSeeMaterial.setBorderPainted(false);
+		bttSeeMaterial.setBackground(new Color(70,120,255));
+		bttSeeMaterial.setForeground(Color.WHITE);
+        
+		bttSeeUser.setFocusPainted(false);
+		bttSeeUser.setBorderPainted(false);
+		bttSeeUser.setBackground(new Color(70,120,255));
+		bttSeeUser.setForeground(Color.WHITE);
+        
+		bttSeeLoans.setFocusPainted(false);
+		bttSeeLoans.setBorderPainted(false);
+		bttSeeLoans.setBackground(new Color(70,120,255));
+		bttSeeLoans.setForeground(Color.WHITE);
+        
+		bttExit.setFocusPainted(false);
+		bttExit.setBorderPainted(false);
+		bttExit.setBackground(new Color(70,120,255));
+		bttExit.setForeground(Color.WHITE);
 		
 		bttOpUser.addActionListener(e -> {
 			mainFrame.showPanel("OpUser");
