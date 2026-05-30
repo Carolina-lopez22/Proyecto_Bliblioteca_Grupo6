@@ -23,7 +23,6 @@ Proyecto_Biblioteca_Grupo6/
  ├── src/
  │   ├── models/   → Lógica del negocio
  │   ├── ui/       → Interfaz gráfica (Swing)
- │   └── utils/    → Utilidades
  ├── books.csv     → Base de datos de libros
  ├── users.csv     → Base de datos de usuarios
  ├── loans.csv     → Base de datos de préstamos
@@ -59,9 +58,6 @@ Proyecto_Biblioteca_Grupo6/
 │   │     ├── OperationUserPanel.java
 │   │     ├── UserTableModel.java
 │   │     └── UserViewPanel.java
-│   │
-│   └── utils/
-│         └── Date.java
 │
 └── README.md
 ```
