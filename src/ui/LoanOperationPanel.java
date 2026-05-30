@@ -181,7 +181,7 @@ public class LoanOperationPanel extends JPanel{
 		txtDate.setText("");
 		buttonGroup.clearSelection();
 		JOptionPane.showMessageDialog(
-				this, "Libro prestado con exito con exito.","Nuevo Libro",JOptionPane.INFORMATION_MESSAGE);
+				this, "Libro prestado con exito.","Nuevo Libro",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void searchLoan() {

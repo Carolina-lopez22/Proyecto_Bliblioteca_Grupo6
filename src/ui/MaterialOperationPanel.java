@@ -163,7 +163,7 @@ public class MaterialOperationPanel extends JPanel{
 		
 		if(! ye.matches("[0-9]+") || ! cp.matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(
-					this, "Los Valores en Año y Copias deben ser enteros." + ye + ", " + cp,"Advertencia",JOptionPane.WARNING_MESSAGE);
+					this, "Los Valores en Año y Copias deben ser enteros." ,"Advertencia",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		int year = Integer.parseInt(ye);

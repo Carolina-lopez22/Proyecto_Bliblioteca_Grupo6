@@ -177,7 +177,7 @@ public class OperationUserPanel extends JPanel{
 		
 		if (cn.equals("")) {
 			JOptionPane.showMessageDialog(
-					this, "Todos los campos se encuentran vacios.","Advertencia",JOptionPane.WARNING_MESSAGE);
+					this, "Carnet se encuentra vacio.","Advertencia",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		
